@@ -1,16 +1,18 @@
 
 # inspired by the official linux image: https://github.com/dotnet/dotnet-docker/blob/main/src/aspire-dashboard/8.0/cbl-mariner-distroless/amd64/Dockerfile
-
 ARG PARENT_IMAGE=
 
 # ---
 FROM ${PARENT_IMAGE}
 
+ARG ASPIRE_VERSION=8.0.0
+
 WORKDIR /app
 
-ENV DOTNET_ASPIRE_VERSION=8.0.2
+ENV DOTNET_ASPIRE_VERSION=${ASPIRE_VERSION}
 
-RUN curl -fSsL --output ./aspire_dashboard.zip https://dotnetbuilds.azureedge.net/public/aspire/%DOTNET_ASPIRE_VERSION%/aspire-dashboard-linux-x64.zip \
+RUN SET DOTNET_ASPIRE_VERSION \
+    && curl -fSsL --output ./aspire_dashboard.zip https://dotnetbuilds.azureedge.net/public/aspire/%DOTNET_ASPIRE_VERSION%/aspire-dashboard-linux-x64.zip \
     && tar -xf ./aspire_dashboard.zip \
     && del .\\aspire_dashboard.zip
 

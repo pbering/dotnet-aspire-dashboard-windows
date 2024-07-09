@@ -1,0 +1,44 @@
+name: cicd
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build_2019:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ghcr.io/pbering/dotnet-aspire-dashboard-windows:1.0.0-ltsc2022
+          build-args: PARENT_IMAGE=mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2022
+
+  build_2022:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ghcr.io/pbering/dotnet-aspire-dashboard-windows:1.0.0-ltsc2019
+          build-args: PARENT_IMAGE=mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2019

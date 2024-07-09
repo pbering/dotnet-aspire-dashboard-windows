@@ -34,9 +34,8 @@ jobs:
 
       - name: Docker build and push
         run: |
-          dir env:
-          #$platform = "${{ matrix.os }}"
-          #$parent_image = "mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-$platform"
-          #$tag = "ghcr.io/pbering/dotnet-aspire-dashboard-windows:$env:app_version-$platform"
-          #docker build --build-arg PARENT_IMAGE=$parent_image --tag $tag .
-          #docker push $tag
+          $parent_image = "mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-${{ matrix.platform }}"
+          $tag = "ghcr.io/pbering/dotnet-aspire-dashboard-windows:$env:app_version-${{ matrix.platform }}"
+
+          docker build --build-arg PARENT_IMAGE=$parent_image --tag $tag .
+          docker push $tag

@@ -16,9 +16,9 @@ jobs:
           - windows-2019
           - windows-2022
         include:
-          - platform: ltsc-2019
+          - platform: ltsc2019
             os: windows-2019
-          - platform: ltsc-2022
+          - platform: ltsc2022
             os: windows-2022
 
     runs-on: ${{ matrix.os }}

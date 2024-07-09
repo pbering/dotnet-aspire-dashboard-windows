@@ -1,7 +1,7 @@
 
 # inspired by the official linux image: https://github.com/dotnet/dotnet-docker/blob/main/src/aspire-dashboard/8.0/cbl-mariner-distroless/amd64/Dockerfile
 
-ARG PARENT_IMAGE=mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2022
+ARG PARENT_IMAGE=
 
 # ---
 FROM ${PARENT_IMAGE}

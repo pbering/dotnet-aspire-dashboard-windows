@@ -11,7 +11,7 @@ WORKDIR /app
 
 ENV DOTNET_ASPIRE_VERSION=${ASPIRE_VERSION}
 
-RUN SET DOTNET_ASPIRE_VERSION \
+RUN ECHO Installing Aspire Dashboard v%DOTNET_ASPIRE_VERSION%... \
     && curl -fSsL --output ./aspire_dashboard.zip https://dotnetbuilds.azureedge.net/public/aspire/%DOTNET_ASPIRE_VERSION%/aspire-dashboard-linux-x64.zip \
     && tar -xf ./aspire_dashboard.zip \
     && del .\\aspire_dashboard.zip

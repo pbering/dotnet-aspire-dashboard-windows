@@ -16,9 +16,9 @@ jobs:
           - windows-2019
           - windows-2022
         include:
-          - platform: ltsc2019
+          - platform: nanoserver-ltsc2019
             os: windows-2019
-          - platform: ltsc2022
+          - platform: nanoserver-ltsc2022
             os: windows-2022
 
     runs-on: ${{ matrix.os }}
@@ -34,7 +34,7 @@ jobs:
 
       - name: Docker build and push
         run: |
-          $parent_image = "mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-${{ matrix.platform }}"
+          $parent_image = "mcr.microsoft.com/dotnet/aspnet:8.0-${{ matrix.platform }}"
           $tag = "ghcr.io/pbering/dotnet-aspire-dashboard-windows:$env:ASPIRE_VERSION-${{ matrix.platform }}"
 
           docker build --build-arg ASPIRE_VERSION=$env:ASPIRE_VERSION --build-arg PARENT_IMAGE=$parent_image --tag $tag .

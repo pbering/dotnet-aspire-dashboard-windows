@@ -5,9 +5,23 @@ on:
     branches:
       - main
 
+env:
+  app_version: "1.0.0"
+
 jobs:
-  build_2019:
-    runs-on: windows-2019
+  build:
+    strategy:
+      matrix:
+        os:
+          - windows-2019
+          - windows-2022
+        include:
+          - platform: ltsc-2019
+            os: windows-2019
+          - platform: ltsc-2022
+            os: windows-2022
+
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
 
@@ -18,28 +32,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: ghcr.io/pbering/dotnet-aspire-dashboard-windows:1.0.0-ltsc2022
-          build-args: PARENT_IMAGE=mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2022
-
-  build_2022:
-    runs-on: windows-2022
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Docker login
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: ghcr.io/pbering/dotnet-aspire-dashboard-windows:1.0.0-ltsc2019
-          build-args: PARENT_IMAGE=mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2019
+      - name: Docker build and push
+        run: |
+          dir env:
+          #$platform = "${{ matrix.os }}"
+          #$parent_image = "mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-$platform"
+          #$tag = "ghcr.io/pbering/dotnet-aspire-dashboard-windows:$env:app_version-$platform"
+          #docker build --build-arg PARENT_IMAGE=$parent_image --tag $tag .
+          #docker push $tag

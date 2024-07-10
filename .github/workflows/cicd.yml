@@ -17,10 +17,10 @@ jobs:
           - windows-2022
         include:
           - platform: ltsc2019
-            parent_image: mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809
+            parent_image: mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2019
             os: windows-2019
           - platform: ltsc2022
-            parent_image: mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-ltsc2022
+            parent_image: mcr.microsoft.com/dotnet/aspnet:8.0-windowsservercore-ltsc2022
             os: windows-2022
 
     runs-on: ${{ matrix.os }}

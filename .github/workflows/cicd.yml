@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  ASPIRE_VERSION: "8.0.2"
+  ASPIRE_VERSION: "8.1.0"
 
 jobs:
   build:
